@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Align error semantics and pinned peers/development dependencies with Pi 1.4.0.
+- Match Pi 1.4 cursor rules: legacy cursors continue in the scan default order; conflicting query orders are rejected.
+- Append schema version 2 for sleeping tasks; preserve existing version 1 journals.
+- Cover request errors and old-journal upgrades in the backend's native tests.
+
 ## 0.1.1 — 2026-10-05
 
 - Re-validated against Pi Durable, Chord and Pi AI 1.0.3. Upstream changes include

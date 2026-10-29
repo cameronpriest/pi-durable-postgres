@@ -37,7 +37,7 @@ try {
 	writeFileSync(join(work, "smoke.ts"), `
 import assert from "node:assert/strict";
 import { BACKGROUND_CONTEXT } from "@earendil-works/chord/context";
-import { createModels } from "@earendil-works/pi-ai/models";
+import { createModels } from "@earendil-works/pi-ai";
 import { anthropicProvider } from "@earendil-works/pi-ai/providers/anthropic";
 import { Harness, createRegistry } from "@earendil-works/pi-durable";
 import {

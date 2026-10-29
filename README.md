@@ -15,6 +15,7 @@ application's package manager, not `pi install`.
 |---|---|---|---|
 | 0.1.0 | 1.0.2 / 1.0.2 | Node.js >=22.19.0 | PostgreSQL 17 tested |
 | 0.1.1 | 1.0.3 / 1.0.3 | Node.js >=22.19.0 | PostgreSQL 17 tested |
+| Unreleased | 1.4.0 / 1.4.0 | Node.js >=22.19.0 | PostgreSQL 17 in CI |
 
 CI targets Node 22.19.0 and 24. Peer versions are deliberately pinned to the
 validated upstream release. Other PostgreSQL versions and drivers are not yet
@@ -41,21 +42,24 @@ is enforced with an advisory lock. Unrelated schemas may have separate owners.
 
 **Live deletion is not implemented yet.** The current delete helper refuses to run
 while a storage owns the schema. Safe live deletion also needs Harness admission,
-task, cache and watch coordination that Pi Durable 1.0.3 still does not publicly expose.
+task, cache and watch coordination that the inspected Pi Durable 1.4.0 Storage interface does not expose.
 See the [live-deletion design](docs/live-deletion.md) for the intended integration.
 
 ## Quick start
 
-Install the alpha release:
+For the unreleased Pi 1.4 update, build and pack this checkout first:
 
 ```bash
-npm install @netzlabor/pi-durable-postgres @earendil-works/pi-durable@1.0.3 @earendil-works/chord@1.0.3 @earendil-works/pi-ai@1.0.3
+pnpm install --frozen-lockfile
+pnpm pack
+# Install the resulting tarball in your application alongside the matching SDK:
+npm install ./netzlabor-pi-durable-postgres-*.tgz @earendil-works/pi-durable@1.4.0 @earendil-works/chord@1.4.0 @earendil-works/pi-ai@1.4.0
 export DATABASE_URL='postgres://app:password@localhost:5432/agent_state'
 ```
 
 ```typescript
 import { BACKGROUND_CONTEXT as context } from "@earendil-works/chord/context";
-import { createModels } from "@earendil-works/pi-ai/models";
+import { createModels } from "@earendil-works/pi-ai";
 import { Harness, createRegistry } from "@earendil-works/pi-durable";
 import { openNodePostgresStorage } from "@netzlabor/pi-durable-postgres";
 

@@ -101,6 +101,10 @@ const INITIAL_SCHEMA: readonly string[] = [
 /** Immutable, ordered schema history. Append new migrations after the initial schema ships. */
 export const POSTGRES_MIGRATIONS: readonly PostgresMigration[] = [
 	{ version: 1, statements: INITIAL_SCHEMA },
+	{ version: 2, statements: [
+		"ALTER TABLE tasks DROP CONSTRAINT tasks_status_check",
+		"ALTER TABLE tasks ADD CONSTRAINT tasks_status_check CHECK (status IN ('pending', 'running', 'waiting', 'sleeping', 'completing', 'terminal'))",
+	] },
 ];
 
 export const CURRENT_POSTGRES_SCHEMA_VERSION = POSTGRES_MIGRATIONS.at(-1)?.version ?? 0;
